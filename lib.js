@@ -74,8 +74,10 @@ module.exports.sendToken = async function (
 module.exports.createWallet = function(password) {
   const wallet = web3.eth.accounts.wallet.create(1);
   const encryptedWallet = web3.eth.accounts.wallet.encrypt(password)
-  saveWallet(encryptedWallet)
-  return encryptedWallet
+  if (encryptedWallet.length > 0) {
+    saveWallet(encryptedWallet[0])
+    return encryptedWallet[0]
+  }
 }
 
 function loadWallet (password) {
